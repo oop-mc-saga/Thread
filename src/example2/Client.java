@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * クライアントクラス
+ * client class
  * @author tadaki
  */
 public class Client implements Runnable{
@@ -21,13 +21,13 @@ public class Client implements Runnable{
     }
 
     /**
-     * 一回の動作
+     * one update operation
      */
     private void update(){
-            if(!tokens.isEmpty()){//tokenがあればputする
+            if(!tokens.isEmpty()){//put token if this has
                 running=server.put(this, tokens.poll());
             }
-            Token t = server.get(this);//サーバからtokenを取得
+            Token t = server.get(this);//get token from the server
             if(t!=null){
                 if(t==Server.falseToken)running=false;
                 else{

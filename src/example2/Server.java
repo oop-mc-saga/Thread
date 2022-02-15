@@ -17,8 +17,8 @@ public class Server implements Runnable {
     protected final Queue<Token> tokens;
     public static final Token falseToken = new Token(-1);
     protected final int numClient;
-    protected final Set<Client> endClients;//通信終了クライアント
-    protected final List<String> log;//通信記録
+    protected final Set<Client> endClients;
+    protected final List<String> log;//communication record
     protected boolean running = true;
     protected final Date endTime;
 
@@ -31,7 +31,7 @@ public class Server implements Runnable {
         }
         endClients = new HashSet<>();
         long startTime = new Date().getTime();
-        //停止時刻設定
+        //Set the down time
         endTime = new Date();
         endTime.setTime(startTime + maxSecond * 1000);
     }
@@ -43,7 +43,7 @@ public class Server implements Runnable {
                 System.out.println("All clients close");
                 running = false;
             }
-            //あらかじめ定めた時刻を過ぎたらサーバ停止
+            //stop this server at the endTime
             Date now = new Date();
             if (now.after(endTime)) {
                 running = false;
@@ -56,7 +56,7 @@ public class Server implements Runnable {
     }
 
     /**
-     * クライアントがtokenを得る
+     * client uses this method to get a token
      *
      * @param client
      * @return
@@ -93,7 +93,7 @@ public class Server implements Runnable {
     }
 
     /**
-     * クライアントがtokenを返す
+     * client uses this method to put a token back
      *
      * @param client
      * @param t
@@ -121,7 +121,7 @@ public class Server implements Runnable {
 
     protected String token2str() {
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        sb.append("tokens at Server:[");
         if (tokens.size() > 0) {
             tokens.stream().forEachOrdered(t -> sb.append(t).append(","));
             int last = sb.lastIndexOf(",");
