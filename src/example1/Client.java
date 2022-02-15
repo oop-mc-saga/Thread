@@ -3,17 +3,17 @@ package example1;
 import java.util.Date;
 
 /**
- * クライアントクラス
+ * client class
  *
  * @author tadaki
  */
 public class Client implements Runnable {
 
     private final int id;
-    private final Server server;//接続先サーバ
+    private final Server server;
     private volatile boolean running = true;
-    private int c = 0;//接続回数をカウント
-    public static final int Cmax = 5;//最大接続回数
+    private int c = 0;//the number of connections
+    public static final int Cmax = 5;//the maximum number of connections
 
     public Client(int id, Server server) {
         this.id = id;
@@ -21,7 +21,7 @@ public class Client implements Runnable {
     }
 
     /**
-     * サーバへの接続の具体
+     * Connect to the server
      */
     private void connect() {
         Date date = new Date();
@@ -30,7 +30,7 @@ public class Client implements Runnable {
     }
 
     /**
-     * ランダムな時間間隔でserverへアクセスする
+     * connect to the server with random timing
      */
     @Override
     public void run() {

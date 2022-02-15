@@ -21,12 +21,14 @@ public class Server implements Runnable {
     }
 
     /**
-     * 定期的にmessageListのサイズを調べ、終了を確認する
+     * Confirm the size of messageList periodically 
+     * and exit if the size reaches the max.
      */
     @Override
     public void run() {
         while (running) {
-            synchronized (messageList) {//listのロックが外れるのを待つ
+            //waiting the list unlocked
+            synchronized (messageList) {
                 if (messageList.size() == max) {
                     running = false;
                 }
@@ -39,18 +41,20 @@ public class Server implements Runnable {
     }
 
     /**
-     * クライアントの接続をmessageListへ登録する。 
-     * 一度に一つのクライアントが利用できる。 
-     * 1秒に一つしか登録できない
+     * Register client connections to messageList.
+     * Only one client is allowed to connect.
+     * Only one client is allowed par one second.
      *
-     * @param client
-     * @param c
-     * @param dateStr
+     * @param client connected client
+     * @param c the number of connection by the client
+     * @param dateStr The time client tries to connect
      */
-    synchronized public void register(Client client, int c, String dateStr) {
+    synchronized public void register(Client client,
+            int c, String dateStr) {
         Date date = new Date();
-        //クライアントが接続しようとした時刻と実際に接続した時刻を記録
-        String ss = client + ":" + c + " " + dateStr + "->" + date.toString();
+        //The time the client tries to connect and succeeds to connect
+        String ss = client + ":" + c + " "
+                + dateStr + "->" + date.toString();
         messageList.add(ss);
         System.out.println(ss);
         try {
@@ -63,11 +67,11 @@ public class Server implements Runnable {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int n = 5;//クライアント数
+        int n = 5;//the number of clients
         Server server = new Server(n * Client.Cmax);
         //サーバをthreadとして起動
         new Thread(server).start();
-        for (int i = 0; i < n; i++) {//クライアントをthreadとして起動
+        for (int i = 0; i < n; i++) {//start clients as threads
             new Thread(new Client(i, server)).start();
         }
     }
