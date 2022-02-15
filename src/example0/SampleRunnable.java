@@ -1,7 +1,7 @@
 package example0;
 
 /**
- * RunnableにしたSmapleクラス
+ * Smaple with Runnable interface
  * @author tadaki
  */
 public class SampleRunnable extends Sample implements Runnable {
@@ -11,7 +11,7 @@ public class SampleRunnable extends Sample implements Runnable {
     }
 
     /**
-     * ランダムな時間間隔でupdate()を実行
+     * update() at random timing
      */
     @Override
     public void run() {

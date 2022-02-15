@@ -3,7 +3,7 @@ package example0;
 import java.util.Date;
 
 /**
- * これだけではRunnableではないクラス
+ * Simple non-runnable class
  * @author tadaki
  */
 public class Sample {
