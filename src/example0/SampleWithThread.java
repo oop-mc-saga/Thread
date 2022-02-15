@@ -1,7 +1,8 @@
 package example0;
 
 /**
- * SampleをRunnableに拡張せずにthreadとして実行
+ * Run Sample class through thread
+ *
  * @author tadaki
  */
 public class SampleWithThread {
