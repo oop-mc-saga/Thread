@@ -122,7 +122,7 @@ public class Server implements Runnable {
     protected String token2str() {
         StringBuilder sb = new StringBuilder();
         sb.append("tokens at Server:[");
-        if (tokens.size() > 0) {
+        if (!tokens.isEmpty()) {
             tokens.stream().forEachOrdered(t -> sb.append(t).append(","));
             int last = sb.lastIndexOf(",");
             sb.replace(last, last + 1, "]");

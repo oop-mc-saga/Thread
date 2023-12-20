@@ -11,6 +11,7 @@ public class Token {
         this.t = t;
     }
     
+    @Override
     public String toString(){
         return String.valueOf(t);
     }

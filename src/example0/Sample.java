@@ -20,7 +20,7 @@ public class Sample {
         Date date = new Date();
         System.out.println(id + ":" + c + " " + date.toString());
         c++;
-        if (c > 10) {
+        if (c > 10) {//Stop after 10 updates
             running = false;
         }
     }

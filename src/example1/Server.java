@@ -68,7 +68,7 @@ public class Server implements Runnable {
      */
     public static void main(String[] args) {
         int n = 5;//the number of clients
-        Server server = new Server(n * Client.Cmax);
+        Server server = new Server(n * Client.MAX_CONNECTIONS);
         //サーバをthreadとして起動
         new Thread(server).start();
         for (int i = 0; i < n; i++) {//start clients as threads

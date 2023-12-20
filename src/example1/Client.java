@@ -13,7 +13,7 @@ public class Client implements Runnable {
     private final Server server;
     private volatile boolean running = true;
     private int c = 0;//the number of connections
-    public static final int Cmax = 5;//the maximum number of connections
+    public static final int MAX_CONNECTIONS = 5;
 
     public Client(int id, Server server) {
         this.id = id;
@@ -41,7 +41,7 @@ public class Client implements Runnable {
                 Thread.sleep(t);
             } catch (InterruptedException e) {
             }
-            if (Cmax <= c) {
+            if (MAX_CONNECTIONS <= c) {
                 running = false;
             }
         }

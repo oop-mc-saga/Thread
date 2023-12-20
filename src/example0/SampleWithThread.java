@@ -14,6 +14,7 @@ public class SampleWithThread {
         Thread thread0 = new Thread(new Runnable() {
             Sample s = new Sample(1);
 
+            @Override
             public void run() {
                 while (s.isRunning()) {
                     s.update();
