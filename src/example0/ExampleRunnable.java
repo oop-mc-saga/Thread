@@ -4,9 +4,9 @@ package example0;
  * Smaple with Runnable interface
  * @author tadaki
  */
-public class SampleRunnable extends Sample implements Runnable {
+public class ExampleRunnable extends Example implements Runnable {
 
-    public SampleRunnable(int id) {
+    public ExampleRunnable(int id) {
         super(id);
     }
 
@@ -29,9 +29,9 @@ public class SampleRunnable extends Sample implements Runnable {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Thread(new SampleRunnable(1)).start();
-        new Thread(new SampleRunnable(2)).start();
-        Thread t = new Thread(new SampleRunnable(3));
+        new Thread(new ExampleRunnable(1)).start();
+        new Thread(new ExampleRunnable(2)).start();
+        Thread t = new Thread(new ExampleRunnable(3));
         t.start();
     }
 

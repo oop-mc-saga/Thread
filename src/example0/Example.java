@@ -6,13 +6,13 @@ import java.util.Date;
  * Simple non-runnable class
  * @author tadaki
  */
-public class Sample {
+public class Example {
 
     protected volatile boolean running = true;
     protected int c = 0;
     private final int id;
 
-    public Sample(int id) {
+    public Example(int id) {
         this.id = id;
     }
 
