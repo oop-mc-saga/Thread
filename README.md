@@ -4,8 +4,8 @@ Java allows multi-threads programming.  This project introduces simple examples 
 # Packages
 ## `example0`
 This introduces a simplest example of using the `Runnable` interface.
-- `Sample.java`: An example of classes to be runnable as a thread.
-- `SampleRunnable.java`: Implementing `Runnable` interface to `Simple` class.
+- `Example.java`: An example of classes to be runnable as a thread.
+- `ExampleRunnable.java`: Implementing `Runnable` interface to `Simple` class.
 - `SimpleWithThread.java`:  The `Simple` class is instantiated within an anonymous implementation of `Runnable` interface and is executed as a thread.
 ## `example1`
 This shows a simple example of asynchronous communication between clients and a server.
