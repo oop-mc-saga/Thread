@@ -15,3 +15,4 @@ This shows a simple example of asynchronous communication between clients and a 
 In this example, clients and a server asynchronously exchange tokens.
 - `Server.java`: The server manages a limited number of tokens for allowing connections from clients.
 - `Client.java`: A client returns a token if it has and gets a new token from the server.
+- `Token.java`: A simple token class defined as an example of the `record` class.
