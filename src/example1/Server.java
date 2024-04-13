@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * サーバクラス
+ * Server class
  *
  * @author tadaki
  */
@@ -29,7 +29,7 @@ public class Server implements Runnable {
         while (running) {
             //waiting the list unlocked
             synchronized (messageList) {
-                if (messageList.size() == max) {
+                if (messageList.size() == max) {//check the size
                     running = false;
                 }
             }
@@ -52,7 +52,7 @@ public class Server implements Runnable {
     synchronized public void register(Client client,
             int c, String dateStr) {
         Date date = new Date();
-        //The time the client tries to connect and succeeds to connect
+        //The time stamp at the client succeeds to connect
         String ss = client + ":" + c + " "
                 + dateStr + "->" + date.toString();
         messageList.add(ss);

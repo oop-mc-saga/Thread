@@ -1,7 +1,9 @@
 package example0;
 
 /**
- * Smaple with Runnable interface
+ * Example class implements Runnable interface
+ * This class is runnable
+ * 
  * @author tadaki
  */
 public class ExampleRunnable extends Example implements Runnable {
@@ -16,10 +18,10 @@ public class ExampleRunnable extends Example implements Runnable {
     @Override
     public void run() {
         while (running) {
-            update();
+            update();//update the state
             int t = (int) (1000 * Math.random());
             try {
-                Thread.sleep(t);
+                Thread.sleep(t);//wait for t milliseconds
             } catch (InterruptedException e) {
             }
         }

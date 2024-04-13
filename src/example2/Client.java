@@ -4,16 +4,23 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * client class
+ * Client class for the example2
+ * 
  * @author tadaki
  */
-public class Client implements Runnable{
+public class Client implements Runnable {
 
-    private final int id;
+    private final int id;// client id
     private final Server server;
     private volatile boolean running = true;
-    private final Queue<Token> tokens;
+    private final Queue<Token> tokens; // tokens that this client has
 
+    /**
+     * Constructor
+     * 
+     * @param id     client id
+     * @param server server
+     */
     public Client(int id, Server server) {
         this.id = id;
         this.server = server;
@@ -23,21 +30,27 @@ public class Client implements Runnable{
     /**
      * one update operation
      */
-    private void update(){
-            if(!tokens.isEmpty()){//put token if this has
-                running=server.put(this, tokens.poll());
-            }
-            Token t = server.get(this);//get token from the server
-            if(t!=null){
-                if(t==Server.falseToken)running=false;
-                else{
+    private void update() {
+        if (!tokens.isEmpty()) {// if this has tokens
+            // put token to the server
+            // if the server is terminated, the return value is false
+            running = server.put(this, tokens.poll());
+        }
+        if (running) {
+            Token t = server.get(this);// get token from the server
+            if (t != null) {
+                if (t == Server.falseToken) {
+                    running = false;
+                } else {
                     tokens.add(t);
                 }
-            }        
+            }
+        }
     }
+
     @Override
     public void run() {
-        while(running){
+        while (running) {
             update();
             int timeout = (int) (1000 * Math.random());
             try {
@@ -48,7 +61,7 @@ public class Client implements Runnable{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "client-" + id;
     }
 }

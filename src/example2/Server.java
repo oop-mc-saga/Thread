@@ -5,31 +5,39 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Deque;
 import java.util.Set;
 
 /**
- *
+ * Server class for the example2
+ *  
  * @author tadaki
  */
 public class Server implements Runnable {
 
-    protected final Queue<Token> tokens;
+    protected final Deque<Token> tokens;//Queue of tokens
     public static final Token falseToken = new Token(-1);
     protected final int numClient;
-    protected final Set<Client> endClients;
-    protected final List<String> log;//communication record
+    protected final Set<Client> clientSet;//set of terminated clients
+    protected final List<String> log;//logs of communications
     protected boolean running = true;
-    protected final Date endTime;
+    protected final Date endTime;//time to stop
 
+    /**
+     * Constructor
+     *
+     * @param numClient number of clients
+     * @param maxSecond maximum time in seconds
+     */
     public Server(int numClient, int maxSecond) {
         this.numClient = numClient;
         log = new ArrayList<>();
         tokens = new LinkedList<>();
+        //initialize tokens
         for (int i = 0; i < numClient; i++) {
             tokens.add(new Token(i));
         }
-        endClients = new HashSet<>();
+        clientSet = new HashSet<>();
         long startTime = new Date().getTime();
         //Set the down time
         endTime = new Date();
@@ -39,7 +47,7 @@ public class Server implements Runnable {
     @Override
     public void run() {
         while (running) {
-            if (endClients.size() == numClient) {
+            if (clientSet.size() == numClient) {
                 System.out.println("All clients close");
                 running = false;
             }
@@ -49,7 +57,7 @@ public class Server implements Runnable {
                 running = false;
             }
             try {
-                Thread.sleep(10);
+                Thread.sleep(10);//wait for a while
             } catch (InterruptedException e) {
             }
         }
@@ -77,7 +85,7 @@ public class Server implements Runnable {
         sb.append(date).append(" ").append(client);
         if (!running) {
             sb.append(" close");
-            endClients.add(client);
+            clientSet.add(client);
             b = falseToken;
         } else {
             if (tokens.isEmpty()) {
@@ -136,9 +144,12 @@ public class Server implements Runnable {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int n = 5;
-        Server server = new Server(n, 60);
+        int n = 5;//number of clients
+        int maxSecond = 60;//maximum time in seconds
+        Server server = new Server(n, maxSecond);
+        //start server
         new Thread(server).start();
+        //start clients
         for (int i = 0; i < n; i++) {
             new Thread(new Client(i, server)).start();
         }

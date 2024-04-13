@@ -9,8 +9,8 @@ import java.util.Date;
  */
 public class Client implements Runnable {
 
-    private final int id;
-    private final Server server;
+    private final int id;//client id
+    private final Server server;//server
     private volatile boolean running = true;
     private int c = 0;//the number of connections
     public static final int MAX_CONNECTIONS = 5;
