@@ -6,19 +6,25 @@ package example0;
  */
 public class CheckingAlive {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        int n = 3;
-        ThreadGroup threadGroup = new ThreadGroup("threadGroup");
+    private int n;
+    final private ThreadGroup threadGroup;
 
+    public CheckingAlive(int n) {
+        this.n = n;
+        threadGroup = new ThreadGroup("threadGroup");
+    }
+
+    public void start() {
         //create n thread in threadGroup
         for (int i = 0; i < n; i++) {
-            Thread t = new Thread(threadGroup, new Thread(new ExampleRunnable(i)));
+            Thread t = new Thread(threadGroup, 
+                    new Thread(new ExampleRunnable(i)));
             t.start();
         }
+        running();
+    }
 
+    private void running() {
         //monitoring running threads
         while ((n = threadGroup.activeCount()) > 0) {
             System.out.println(n + " threads are running");
@@ -27,5 +33,15 @@ public class CheckingAlive {
             } catch (InterruptedException e) {
             }
         }
+
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        int n = 3;
+        CheckingAlive sys = new CheckingAlive(n);
+        sys.start();
     }
 }

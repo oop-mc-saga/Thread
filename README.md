@@ -18,3 +18,7 @@ In this example, clients and a server asynchronously exchange tokens.
 - `Server.java`: The server manages a limited number of tokens for allowing connections from clients.
 - `Client.java`: A client returns a token if it has and gets a new token from the server.
 - `Token.java`: A simple token class defined as an example of the `record` class.
+## `waitAndNotify`
+This  provides a `wait` and `notify` example.
+- `Target.java`: A target class running in a thread and **wait** the notification.
+- `Main.java`: A main class running ina thread and  **notify** running thread to wake up the target instances.
