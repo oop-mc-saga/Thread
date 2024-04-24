@@ -1,5 +1,6 @@
-package example2;
+package example2WithWaitAndNotify;
 
+import example2.Token;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -10,7 +11,7 @@ import java.util.Set;
 
 /**
  * Server class for the example2
- *  
+ *
  * @author tadaki
  */
 public class Server implements Runnable {
@@ -34,10 +35,16 @@ public class Server implements Runnable {
         log = new ArrayList<>();
         tokens = new LinkedList<>();
         //initialize tokens
-        for (int i = 0; i < numClient; i++) {
+        int numToken = (int)(.5*numClient);
+        for (int i = 0; i < numToken; i++) {
             tokens.add(new Token(i));
         }
         clientSet = new HashSet<>();
+        //start clients
+        for (int i = 0; i < numClient; i++) {
+            new Thread(new Client(i, this)).start();
+        }
+
         long startTime = new Date().getTime();
         //Set the down time
         endTime = new Date();
@@ -70,15 +77,6 @@ public class Server implements Runnable {
      * @return
      */
     synchronized public Token get(Client client) {
-        Token b = getSub(client);       
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
-        return b;
-    }
-    
-    protected Token getSub(Client client){
         Date date = new Date();
         Token b = null;
         StringBuilder sb = new StringBuilder();
@@ -109,10 +107,6 @@ public class Server implements Runnable {
     synchronized boolean put(Client client, Token t) {
         if (running) {
             putSub(client, t);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
         }
         return running;
     }
@@ -144,15 +138,11 @@ public class Server implements Runnable {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int n = 5;//number of clients
-        int maxSecond = 60;//maximum time in seconds
+        int n = 10;//number of clients
+        int maxSecond = 5;//maximum time in seconds
         Server server = new Server(n, maxSecond);
         //start server
         new Thread(server).start();
-        //start clients
-        for (int i = 0; i < n; i++) {
-            new Thread(new Client(i, server)).start();
-        }
     }
 
 }
