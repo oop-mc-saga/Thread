@@ -2,5 +2,5 @@ build
 nbproject/private
 dist
 test
-example3
-example2WithWaitAndNotify
+src/example3
+src/example2WithWaitAndNotify
